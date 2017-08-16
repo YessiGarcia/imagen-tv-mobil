@@ -63,49 +63,49 @@ const validarCampos = (e)=>{
 var loginNativo = function () {
 	console.log("Entra a login");
 	$.ajax({
-        url: 'http://imagentv.jediteam.mx/api/users/login',
-        type: 'POST',
-        dataType: 'json',
-        timeout: 0,
-        data: {
-            "type": 1,
-            "email": $correo.val(),
-            "password": $contrasenia.val(),
-        },
-        success: function(response) {
-            console.log(response.statusCode)
-        },
-        error : function(error ) {
-        	console.log(error)
-    	},
-    	complete: function(jqxhr, textStatus){
-		   	console.log(textStatus);
-		   	if(textStatus == 'success'){
-		   		swal({
-				  title: "Bienvenid@!",
-				  text: $correo.val(),
-				  timer: 2000,
-				  showConfirmButton: false
+		url: 'http://imagentv.jediteam.mx/api/users/login',
+		type: 'POST',
+		dataType: 'json',
+		timeout: 0,
+		data: {
+			"type": 1,
+			"email": $correo.val(),
+			"password": $contrasenia.val(),
+		},
+		success: function(response) {
+			console.log(response.statusCode)
+		},
+		error : function(error ) {
+			console.log(error)
+		},
+		complete: function(jqxhr, textStatus){
+			console.log(textStatus);
+			if(textStatus == 'success'){
+				swal({
+					title: "Bienvenid@!",
+					text: $correo.val(),
+					timer: 2000,
+					showConfirmButton: false
 				});
 				setTimeout(function(){
 					location.href = "bienvenido.html";
 				}, 2100);
-		   	} else {
-		   		swal({
-				  title: "Usuario o contraseña incorrecta",
-				  text: "Vuelve a intentarlo",
-				  type: "warning",
-				  showCancelButton: true,
-				  confirmButtonText: "Ok",
-				  closeOnConfirm: true
+			} else {
+				swal({
+					title: "Usuario o contraseña incorrecta",
+					text: "Vuelve a intentarlo",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonText: "Ok",
+					closeOnConfirm: true
 				},
-				function(){
-				  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+					 function(){
+					swal("Deleted!", "Your imaginary file has been deleted.", "success");
 				});
-		   	}
+			}
 		}
 
-    })
+	})
 };
 
 
@@ -155,10 +155,6 @@ var entrar = function(proveedor){
 
 		ingresoDeUsuario(responseAPI);
 	})
-		.then(function() {
-		//	alert("viene de firebase exito")
-		location.href = 'canal.html';
-	})
 		.catch(function(error) {
 		var errorCode = error.code;
 		var errorMessage = error.message;
@@ -172,71 +168,85 @@ var registroUsuarioApi = function(responseAPI){
 	console.log('entra registroUsuarioApi')
 	console.log(responseAPI);
 	$.ajax({
-        url: 'http://imagentv.jediteam.mx/api/users/register',
-        type: 'POST',
-        dataType: 'json',
-        timeout: 0,
-        data: {
-            "type": responseAPI.type,
-            "name": responseAPI.name,
-            "email": responseAPI.email,
-        },
-        success: function(response, textStatus) {
-            console.log('succes', response);
-            localStorage.setItem('token', response.api_key);
-        },
-        error : function(error ) {
-        	console.log(error)
-    	},
-    	complete: function(jqxhr, textStatus){
-		   	console.log(textStatus);
-		   	if(textStatus == 'success'){
-		   		alert("El registro fue exitoso");	
-		   		setTimeout(function(){location.href = "bienvenido.html"}, 1000)
-		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
+		url: 'http://imagentv.jediteam.mx/api/users/register',
+		type: 'POST',
+		dataType: 'json',
+		timeout: 0,
+		data: {
+			"type": responseAPI.type,
+			"name": responseAPI.name,
+			"email": responseAPI.email,
+		},
+		success: function(response, textStatus) {
+			console.log('succes', response);
+			if(textStatus == 'success'){
+				ingresoDeUsuario(responseAPI);
+			}
+		},
+		error : function(error ) {
+			console.log(error)
+		},
+		complete: function(jqxhr, textStatus){
+			console.log(textStatus);
+			if(textStatus == 'success'){
+				swal({
+					title: "El registro fue exitoso",
+					timer: 2000,
+					showConfirmButton: false
+				});
+				setTimeout(function(){location.href = "bienvenido.html"}, 1000)
+			} else {swal({
+				title: "Lo sentimos, por el momento no podemos registrate.",
+				text: "Inténtalo más tarde",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonText: "Ok",
+				closeOnConfirm: true
+			})
+				   }
 		}
-    })
+	})
 };
 
 var ingresoDeUsuario = function(responseAPI) {
 
 	$.ajax({
-        url: 'http://imagentv.jediteam.mx/api/users/login',
-        type: 'POST',
-        dataType: 'json',
-        timeout: 0,
-        data: {
-            "type": responseAPI.type,
-            "email": responseAPI.email,
-        },
-        success: function(response) {
-            console.log("response",response)
-            localStorage.setItem('token', response.api_key);
-        },
-        error : function(error ) {
-        	console.log(error)
-    	},
-    	complete: function(jqxhr, textStatus){
-		   	if(textStatus == "error"){
-		   		registroUsuarioApi(responseAPI);
-		   	} else {
+		url: 'http://imagentv.jediteam.mx/api/users/login',
+		type: 'POST',
+		dataType: 'json',
+		timeout: 0,
+		data: {
+			"type": responseAPI.type,
+			"email": responseAPI.email,
+		},
+		success: function(response) {
+			console.log("response",response)
+			localStorage.setItem('token', response.api_key);
+		},
+		error : function(error ) {
+			console.log(error)
+		},
+		complete: function(jqxhr, textStatus){
+			if(textStatus == "error"){
+				registroUsuarioApi(responseAPI);
+			} else {
 
-		   		swal({
-				  title: "Bienvenid@!",
-				  text: responseAPI.name,
-				  timer: 2000,
-				  showConfirmButton: false
+				swal({
+					title: "Bienvenid@!",
+					text: responseAPI.name,
+					timer: 2000,
+					showConfirmButton: false
 				});
 				setTimeout(function(){
 					location.href = "canal.html";
 				}, 2100);
-		   	
-		   	
+
+
+			}
+
 		}
 
-    }
-
-})
+	})
 };
 
 
