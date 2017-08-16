@@ -110,8 +110,8 @@ var entrar = function(proveedor){
 		ingresoDeUsuario(responseAPI);
 	})
 		.then(function() {
-
-		location.href = 'bienvenida.html';
+			//alert("viene de firebase exito")
+		//location.href = 'bienvenida.html';
 	})
 		.catch(function(error) {
 		var errorCode = error.code;
@@ -123,29 +123,61 @@ var entrar = function(proveedor){
 
 
 var registroUsuarioApi = function(responseAPI){
-	$.post('http://www.imagentv.jediteam.mx/api/users/register', {
-		jsonp: "callback",
-		type: responseAPI.type,
-		email: responseAPI.email,
-		gender: responseAPI.gender,
-	})
+	console.log('entra registroUsuarioApi')
+	console.log(responseAPI);
+	$.ajax({
+        url: 'http://imagentv.jediteam.mx/api/users/register',
+        type: 'POST',
+        dataType: 'json',
+        timeout: 0,
+        data: {
+            "type": responseAPI.type,
+            "name": responseAPI.name,
+            "email": responseAPI.email,
+        },
+        success: function(response, textStatus) {
+            console.log('succes', response);
+            localStorage.setItem('token', response.api_key);
+        },
+        error : function(error ) {
+        	console.log(error)
+    	},
+    	complete: function(jqxhr, textStatus){
+		   	console.log(textStatus);
+		   	if(textStatus == 'success'){
+		   		alert("El registro fue exitoso");	
+		   		setTimeout(function(){location.href = "bienvenido.html"}, 1000)
+		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
+		}
+    })
 };
 
 var ingresoDeUsuario = function(responseAPI) {
-	console.log(responseAPI);
+
 	$.ajax({
-		url:'http://www.imagentv.jediteam.mx/api/users/login',
-		type: 'POST',
-		data: {
-			type: responseAPI.type,
-			email: responseAPI.email,
-		}, 
-		success: function(res){
-			console.log(res)
-		}, error: function(error){
-			console.log(error)
+        url: 'http://imagentv.jediteam.mx/api/users/login',
+        type: 'POST',
+        dataType: 'json',
+        timeout: 0,
+        data: {
+            "type": responseAPI.type,
+            "email": responseAPI.email,
+        },
+        success: function(response) {
+            console.log("response",response)
+            localStorage.setItem('token', response.api_key);
+        },
+        error : function(error ) {
+        	console.log(error)
+    	},
+    	complete: function(jqxhr, textStatus){
+		   	if(textStatus == "error"){
+		   		registroUsuarioApi(responseAPI);
+		   	}
+		   	
 		}
-	})
+
+    })
 
 }
 
