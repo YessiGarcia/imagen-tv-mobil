@@ -181,6 +181,7 @@ var registroUsuarioApi = function(responseAPI){
         },
         success: function(response, textStatus) {
             console.log('succes', response);
+            localStorage.setItem('token', response.api_key);
         },
         error : function(error ) {
         	console.log(error)
@@ -188,7 +189,7 @@ var registroUsuarioApi = function(responseAPI){
     	complete: function(jqxhr, textStatus){
 		   	console.log(textStatus);
 		   	if(textStatus == 'success'){
-		   		alert("El registro fue exitoso");
+		   		alert("El registro fue exitoso");	
 		   		setTimeout(function(){location.href = "bienvenido.html"}, 1000)
 		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
 		}
@@ -208,6 +209,7 @@ var ingresoDeUsuario = function(responseAPI) {
         },
         success: function(response) {
             console.log("response",response)
+            localStorage.setItem('token', response.api_key);
         },
         error : function(error ) {
         	console.log(error)
