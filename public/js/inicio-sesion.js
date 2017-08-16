@@ -72,7 +72,9 @@ var loginNativo = function () {
             "password": $contrasenia.val(),
         },
         success: function(response) {
-            console.log(response.statusCode)
+            console.log(response)
+            localStorage.setItem('token', response.api_key);
+            console.log('token',localStorage.token)
         },
         error : function(error ) {
         	console.log(error)
@@ -181,7 +183,10 @@ var registroUsuarioApi = function(responseAPI){
         },
         success: function(response, textStatus) {
             console.log('succes', response);
-            localStorage.setItem('token', response.api_key);
+            if(textStatus == 'success'){
+            	alert("se envía a login")
+            	ingresoDeUsuario(responseAPI);
+            }
         },
         error : function(error ) {
         	console.log(error)
@@ -190,7 +195,7 @@ var registroUsuarioApi = function(responseAPI){
 		   	console.log(textStatus);
 		   	if(textStatus == 'success'){
 		   		alert("El registro fue exitoso");	
-		   		setTimeout(function(){location.href = "bienvenido.html"}, 1000)
+		   		//setTimeout(function(){location.href = "bienvenido.html"}, 1000)
 		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
 		}
     })
@@ -210,6 +215,7 @@ var ingresoDeUsuario = function(responseAPI) {
         success: function(response) {
             console.log("response",response)
             localStorage.setItem('token', response.api_key);
+            console.log('token del mal',localStorage.token)
         },
         error : function(error ) {
         	console.log(error)
@@ -225,9 +231,9 @@ var ingresoDeUsuario = function(responseAPI) {
 				  timer: 2000,
 				  showConfirmButton: false
 				});
-				setTimeout(function(){
+				/*setTimeout(function(){
 					location.href = "canal.html";
-				}, 2100);
+				}, 2100);*/
 		   	
 		   	
 		}

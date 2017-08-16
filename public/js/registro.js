@@ -37,7 +37,8 @@ var registrarUsuario = function() {
             "gender": 'Femenino',
         },
         success: function(response, textStatus) {
-            console.log(textStatus)
+            console.log(response)
+             localStorage.setItem('token', response.api_key);
         },
         error : function(error ) {
         	console.log(error)
@@ -45,8 +46,9 @@ var registrarUsuario = function() {
     	complete: function(jqxhr, textStatus){
 		   	console.log(textStatus);
 		   	if(textStatus == 'success'){
+
 		   		alert("El registro fue exitoso");
-		   		setTimeout(function(){location.href = "bienvenido.html"}, 1000)
+		   		//setTimeout(function(){location.href = "bienvenido.html"}, 1000)
 		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
 		}
     })
