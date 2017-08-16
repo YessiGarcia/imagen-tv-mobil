@@ -59,6 +59,7 @@ const validarCampos = (e)=>{
 	} 
 }
 
+
 var loginNativo = function () {
 	console.log("Entra a login");
 	$.ajax({
@@ -106,8 +107,8 @@ var loginNativo = function () {
 		   	}
 		}
 
-    })
-};
+    })};
+
 
 var config = {
 	apiKey: "AIzaSyB8ZAr0jBCnNMzE7ogIDQNuQPmaitgse1E",
@@ -149,7 +150,7 @@ var entrar = function(proveedor){
 			type: 2,
 			gender: 'Femenino',
 		}
-
+		localStorage.setItem('correo', responseAPI.email);
 		localStorage.setItem('name', responseAPI.name);
 
 

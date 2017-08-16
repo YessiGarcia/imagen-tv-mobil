@@ -37,20 +37,18 @@ var registrarUsuario = function() {
             "gender": 'Femenino',
         },
         success: function(response, textStatus) {
-            console.log(response)
-             localStorage.setItem('token', response.api_key);
+            console.log(textStatus)
         },
         error : function(error ) {
-        	console.log(error)
-    	},
-    	complete: function(jqxhr, textStatus){
-		   	console.log(textStatus);
-		   	if(textStatus == 'success'){
-
-		   		alert("El registro fue exitoso");
-		   		//setTimeout(function(){location.href = "bienvenido.html"}, 1000)
-		   	} else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
-		}
+            console.log(error)
+        },
+        complete: function(jqxhr, textStatus){
+            console.log(textStatus);
+            if(textStatus == 'success'){
+                alert("El registro fue exitoso");
+                setTimeout(function(){location.href = "bienvenido.html"}, 2000)
+            } else {alert('Lo sentimos, por el momento no podemos registrate, intentalo más tarde.')}
+        }
     })
 }
 
