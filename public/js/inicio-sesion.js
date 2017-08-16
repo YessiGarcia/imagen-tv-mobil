@@ -55,12 +55,56 @@ const validarContrasenia = ()=>{
 const validarCampos = (e)=>{
 	e.preventDefault();
 	if(validarCorreo() && validarContrasenia()){
-		registroUsuario();
+		loginNativo();
 	} 
 }
 
-const registroUsuario = function(){
-	location.href="canal.html"
+var loginNativo = function () {
+	console.log("Entra a login");
+	$.ajax({
+        url: 'http://imagentv.jediteam.mx/api/users/login',
+        type: 'POST',
+        dataType: 'json',
+        timeout: 0,
+        data: {
+            "type": 1,
+            "email": $correo.val(),
+            "password": $contrasenia.val(),
+        },
+        success: function(response) {
+            console.log(response.statusCode)
+        },
+        error : function(error ) {
+        	console.log(error)
+    	},
+    	complete: function(jqxhr, textStatus){
+		   	console.log(textStatus);
+		   	if(textStatus == 'success'){
+		   		swal({
+				  title: "Bienvenid@!",
+				  text: $correo.val(),
+				  timer: 2000,
+				  showConfirmButton: false
+				});
+				setTimeout(function(){
+					location.href = "canal.html";
+				}, 2100);
+		   	} else {
+		   		swal({
+				  title: "Usuario o contraseña incorrecta",
+				  text: "Vuelve a intentarlo",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonText: "Ok",
+				  closeOnConfirm: true
+				},
+				function(){
+				  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+				});
+		   	}
+		}
+
+    })
 };
 
 var config = {
