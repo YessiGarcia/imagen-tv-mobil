@@ -148,7 +148,7 @@ var entrar = function(proveedor){
 			type: 2,
 			gender: 'Femenino',
 		}
-
+		localStorage.setItem('correo', responseAPI.email);
 		localStorage.setItem('name', responseAPI.name);
 
 

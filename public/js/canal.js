@@ -5,6 +5,8 @@ var cargarPagina = function(){
 };
 
 
+
+
 var detalleVideo = function(){
 	location.href = 'detalle-video.html';
 };
