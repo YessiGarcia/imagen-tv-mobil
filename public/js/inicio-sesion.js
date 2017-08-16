@@ -87,7 +87,7 @@ var loginNativo = function () {
 				  showConfirmButton: false
 				});
 				setTimeout(function(){
-					location.href = "canal.html";
+					location.href = "bienvenido.html";
 				}, 2100);
 		   	} else {
 		   		swal({
@@ -217,13 +217,24 @@ var ingresoDeUsuario = function(responseAPI) {
     	complete: function(jqxhr, textStatus){
 		   	if(textStatus == "error"){
 		   		registroUsuarioApi(responseAPI);
-		   	}
+		   	} else {
+
+		   		swal({
+				  title: "Bienvenid@!",
+				  text: responseAPI.name,
+				  timer: 2000,
+				  showConfirmButton: false
+				});
+				setTimeout(function(){
+					location.href = "canal.html";
+				}, 2100);
+		   	
 		   	
 		}
 
-    })
+    }
 
-}
+})};
 
 
 
