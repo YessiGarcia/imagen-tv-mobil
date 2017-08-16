@@ -106,6 +106,7 @@ var loginNativo = function () {
 		}
 
     })
+};
 
 
 var config = {
@@ -235,7 +236,8 @@ var ingresoDeUsuario = function(responseAPI) {
 
     }
 
-})};
+})
+};
 
 
 
