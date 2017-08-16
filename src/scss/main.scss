@@ -6,8 +6,19 @@ $colormoradof:#38052a;
 $colormoradoc:#451e36;
 $colorblanco: #ffffff;
 
-.navc{
-  background-color: $colornegro;
+nav{
+	.brand-logo{
+		height: 50px;
+	}
+}
+
+.side-nav{
+	img{
+		height: 25px;
+		position:relative;
+		top: 10px;
+		right: 10px;
+	}
 }
 
 .anchob{
