@@ -111,7 +111,7 @@ var entrar = function(proveedor){
 	})
 		.then(function() {
 
-		location.href = 'bienvenido.html';
+		location.href = 'bienvenida.html';
 	})
 		.catch(function(error) {
 		var errorCode = error.code;
