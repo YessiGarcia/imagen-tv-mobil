@@ -13,6 +13,10 @@ var cerrarSesion = function(e){
 		data: {
 			"token": token,
 		},
+		beforeSend: function (xhr) {
+			/* Authorization header */
+			xhr.setRequestHeader("X-authorization");
+		},
 		success: function(response) {
 			console.log('success', response)
 		},

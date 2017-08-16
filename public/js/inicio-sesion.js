@@ -110,8 +110,8 @@ var entrar = function(proveedor){
 		ingresoDeUsuario(responseAPI);
 	})
 		.then(function() {
-			//alert("viene de firebase exito")
-		//location.href = 'bienvenida.html';
+		//	alert("viene de firebase exito")
+		location.href = 'canal.html';
 	})
 		.catch(function(error) {
 		var errorCode = error.code;
