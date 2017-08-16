@@ -55,9 +55,10 @@ const validarContrasenia = ()=>{
 const validarCampos = (e)=>{
 	e.preventDefault();
 	if(validarCorreo() && validarContrasenia()){
-		loginNativo();
+		registroUsuario();
 	} 
 }
+
 
 var loginNativo = function () {
 	console.log("Entra a login");
@@ -105,7 +106,7 @@ var loginNativo = function () {
 		}
 
     })
-};
+
 
 var config = {
 	apiKey: "AIzaSyB8ZAr0jBCnNMzE7ogIDQNuQPmaitgse1E",
